@@ -1,0 +1,4 @@
+.table-draggable {
+    cursor: col-resize;
+    user-select: none;
+}

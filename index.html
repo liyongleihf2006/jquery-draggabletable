@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DraggableTable</title>
+    <link rel="stylesheet" href="./jquery-draggabletable.css">
+    <style>
+        table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+        table thead {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <table id="table" border="1">
+        <thead>
+            <tr>
+                <th rowspan="2">表头1-1</th>
+                <th colspan="2">表头1-2</th>
+                <th rowspan="2">表头1-3</th>
+            </tr>
+            <tr>
+                <th>表头2-1</th>
+                <th>表头2-2</th>
+            </tr>
+            <tr>
+                <th>表头3-1</th>
+                <th>表头3-2</th>
+                <th>表头3-3</th>
+                <th>表头3-4</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>内容1-1</td>
+                <td>内容1-2</td>
+                <td>内容1-3</td>
+                <td>内容1-4</td>
+            </tr>
+            <tr>
+                <td>内容2-1</td>
+                <td>内容2-2</td>
+                <td>内容2-3</td>
+                <td>内容2-4</td>
+            </tr>
+            <tr>
+                <td>内容3-1</td>
+                <td>内容3-2</td>
+                <td>内容3-3</td>
+                <td>内容3-4</td>
+            </tr>
+            <tr>
+                <td>内容4-1</td>
+                <td>内容4-2</td>
+                <td>内容4-3</td>
+                <td>内容4-4</td>
+            </tr>
+            <tr>
+                <td>内容5-1</td>
+                <td>内容5-2</td>
+                <td>内容5-3</td>
+                <td>内容5-4</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>表尾1-1</th>
+                <th colspan="2">表尾1-2</th>
+                <th>表尾1-3</th>
+            </tr>
+        </tfoot>
+    </table>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./jquery-draggabletable.js"></script>
+    <script>
+        var table = document.querySelector("table");
+        draggableTable(table);
+    </script>
+</body>
+
+</html>
