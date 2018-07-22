@@ -6,6 +6,10 @@ function draggableTable(table,cb) {
             return result + current.colSpan;
         }, 0);
     }();
+    var auxiliary = getAuxiliary();
+    var totalWidth = auxiliary.totalWidth;
+    //最小宽度
+    var minPercentage = 20/totalWidth*100;
     var _cols = generateCols();
     var namespace = getNamespace(table);
     relationCol();
@@ -52,7 +56,6 @@ function draggableTable(table,cb) {
         }
     }
     function generateCols() {
-        var auxiliary = getAuxiliary();
         var cellWidths = auxiliary.cellWidths;
         var colgroup = document.createElement("colgroup");
         var cols = [];
@@ -163,20 +166,37 @@ function draggableTable(table,cb) {
         }
         function setPercentage(offsetX) {
             var cols = currentCell.cols;
+            var adjacentCols = [];
             if (direction === "left") {
                 var percentage = - offsetX * 100 / totalWidth;
-                var adjacentCol = cols[0] - 1;
+                for(var i = 0;i<cols[0];i++){
+                    adjacentCols.push(i);
+                }
             } else if (direction === "right") {
                 var percentage = offsetX * 100 / totalWidth;
-                var adjacentCol = cols[cols.length - 1] + 1;
+                var adjacentCols = cols.slice(cols[cols.length - 1]+1);
+                for(var i = cols[cols.length-1]+1;i<colLen;i++){
+                    adjacentCols.push(i);
+                }
             }
             var proportion = getProportion(cols);
             for (var i = 0; i < cols.length; i++) {
                 var col = cols[i];
                 var _col = _cols[col];
                 _col.width = proportion[i] * percentage + _colWidths[col] + "%";
+                if(parseFloat(_col.width)<minPercentage){
+                    _col.width = minPercentage+"%";
+                }
             }
-            _cols[adjacentCol].width = -percentage + _colWidths[adjacentCol] + "%";
+            var adjacentProportion = getProportion(adjacentCols);
+            for (var i = 0; i < adjacentCols.length; i++) {
+                var col = adjacentCols[i];
+                var _col = _cols[col];
+                _col.width = -adjacentProportion[i] * percentage + _colWidths[col] + "%";
+                if(parseFloat(_col.width)<minPercentage){
+                    _col.width = minPercentage+"%";
+                }
+            }
         }
         function getProportion(cols) {
             var total = 0;
