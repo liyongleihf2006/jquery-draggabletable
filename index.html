@@ -81,7 +81,9 @@
     <script src="./jquery-draggabletable.js"></script>
     <script>
         var table = document.querySelector("table");
-        draggableTable(table);
+        draggableTable(table,function(){
+            console.log("moved");
+        });
     </script>
 </body>
 

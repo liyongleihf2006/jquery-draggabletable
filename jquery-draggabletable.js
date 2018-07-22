@@ -1,4 +1,4 @@
-function draggableTable(table) {
+function draggableTable(table,cb) {
     var colLen = function () {
         var firstRow = table.rows[0];
         var cells = firstRow.cells;
@@ -141,6 +141,7 @@ function draggableTable(table) {
                 var clientX = e.clientX;
                 var offsetX = clientX - startX;
                 setPercentage(offsetX);
+                cb.call(table);
             }
         })
         /**
