@@ -7,7 +7,7 @@ function draggableTable(table) {
         }, 0);
     }();
     var _cols = generateCols();
-    var namespace = "._" + $(table).closest("[id]").attr("id");
+    var namespace = getNamespace(table);
     relationCol();
 
     function relationCol() {
@@ -191,5 +191,28 @@ function draggableTable(table) {
             }
             return result;
         }
+    }
+    function getNamespace(dom){
+        var namespace = [];
+        _getNamespace(dom);
+        namespace.reverse();
+        return "._"+namespace.join(" ");
+        function _getNamespace(dom){
+            var tagName = dom.tagName;
+            var id = dom.id;
+            if(id){
+                id="#"+id;
+            }
+            var className = (dom.getAttribute("class")||"").replace(/\s+/g,".");
+            if(className){
+                className="."+className;
+            }
+            var index = ":nth-child("+($(dom).index()+1)+")";
+            namespace.push(tagName+id+className+index);
+            if(dom.parentElement){
+                _getNamespace(dom.parentElement);
+            }
+        }
+        
     }
 }
